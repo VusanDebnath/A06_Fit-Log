@@ -5,21 +5,18 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  // এখন আমরা কোন page এ আছি সেটা জানার জন্য (যেমন "/" বা "/my-plan")
   const pathname = usePathname();
 
-  // আপাতত 0 রাখলাম, Step 4 এ এগুলো আসল সংখ্যা হবে
   const planCount = 0;
   const savedCount = 0;
 
-  // Active link আর সাধারণ link এর style আলাদা করে রাখলাম
   const activeStyle = "bg-[#1c2308] text-[#ccff00]";
   const normalStyle = "text-gray-400 hover:text-white";
 
   return (
     <nav className="border-b border-[#23262e] bg-[#0c0d10]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8">
-        {/* বামে: Logo */}
+        {/* left side: Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.png"
@@ -33,7 +30,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* মাঝে: Navigation link */}
+        {/* Middle: Navigation link */}
         <div className="flex items-center gap-1 sm:gap-3">
           <Link
             href="/"
@@ -53,7 +50,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ডানে: Plan আর Saved badge */}
+        {/* Right side: Plan আর Saved badge */}
         <div className="flex items-center gap-3 text-sm">
           <Link href="/my-plan" className="flex items-center gap-2">
             <span>Plan</span>

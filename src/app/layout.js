@@ -1,6 +1,7 @@
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import Navbar from "../app/components/Navbar";
+import Footer from "../app/components/Footer";
 
 // Inter font (For general)
 const inter = Inter({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         <main className="flex-1">{children}</main>
+        <Footer/>
       </body>
     </html>
   );
