@@ -3,20 +3,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { usePlan } from "../context/PlanContext";
 
 export default function Navbar() {
+  // Ekhon kon page e achi seta jante (jemon "/" ba "/my-plan")
   const pathname = usePathname();
 
-  const planCount = 0;
-  const savedCount = 0;
+  // Common box theke Plan ar Saved er list niye ashlam
+  const { planIds, savedIds } = usePlan();
+  const planCount = planIds.length;
+  const savedCount = savedIds.length;
 
+  // Active link ar shadharon link er style alada kore rakhlam
   const activeStyle = "bg-[#1c2308] text-[#ccff00]";
   const normalStyle = "text-gray-400 hover:text-white";
 
   return (
     <nav className="border-b border-[#23262e] bg-[#0c0d10]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8">
-        {/* left side: Logo */}
+        {/* Bame: Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.png"
@@ -30,7 +35,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Middle: Navigation link */}
+        {/* Majhe: Navigation link */}
         <div className="flex items-center gap-1 sm:gap-3">
           <Link
             href="/"
@@ -50,7 +55,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Right side: Plan আর Saved badge */}
+        {/* Dane: Plan ar Saved badge */}
         <div className="flex items-center gap-3 text-sm">
           <Link href="/my-plan" className="flex items-center gap-2">
             <span>Plan</span>

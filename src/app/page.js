@@ -1,13 +1,17 @@
+import Hero from "../components/Hero";
+
 export default function Home() {
   return (
-    <main className="p-10">
-      <h1 className="font-oswald text-5xl uppercase text-[#ccff00]">FitLog</h1>
-      <p className="mt-2 text-gray-400">
-        Theme check: dark background, lime color.
-      </p>
-      <button className="mt-4 rounded-md bg-[#ccff00] px-4 py-2 font-semibold text-black">
-        Test Button
-      </button>
-    </main>
+    <div>
+      <Hero />
+      
+      <section id="library" className="mx-auto max-w-7xl px-4 py-16 sm:px-8">
+        <h2 className="font-oswald text-3xl font-bold">THE LIBRARY</h2>
+        <p className="mt-1 text-sm text-gray-400">
+          Twelve lifts covering every major muscle group.
+        </p>
+        <div className="h-[600px]" />
+      </section>
+    </div>
   );
 }

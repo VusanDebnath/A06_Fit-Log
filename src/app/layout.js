@@ -1,15 +1,16 @@
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
-import Navbar from "../app/components/Navbar";
-import Footer from "../app/components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { PlanProvider } from "../context/PlanContext";
 
-// Inter font (For general)
+// Inter font (shadharon lekhar jonno)
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-// Oswald font (heading)
+// Oswald font (boro heading er jonno)
 const oswald = Oswald({
   subsets: ["latin"],
   variable: "--font-oswald",
@@ -31,9 +32,12 @@ export default function RootLayout({ children }) {
         className="flex min-h-screen flex-col"
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer/>
+        {/* PlanProvider er bhetore thaka shob kichu common box er data pabe */}
+        <PlanProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </PlanProvider>
       </body>
     </html>
   );
