@@ -1,5 +1,6 @@
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
+import Navbar from "../app/components/Navbar";
 
 // Inter font (For general)
 const inter = Inter({
@@ -25,8 +26,12 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${oswald.variable}`}
       suppressHydrationWarning
     >
-      <body style={{ fontFamily: "var(--font-inter), sans-serif" }}>
-        {children}
+      <body
+        className="flex min-h-screen flex-col"
+        style={{ fontFamily: "var(--font-inter), sans-serif" }}
+      >
+        <Navbar />
+        <main className="flex-1">{children}</main>
       </body>
     </html>
   );
