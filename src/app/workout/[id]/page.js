@@ -4,12 +4,17 @@ import { Bookmark, CalendarPlus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { usePlan } from "../../../context/PlanContext";
 import { getWorkoutById } from "../../../lib/api";
 
 export default function WorkoutDetails() {
   // URL theke id ta ber korlam! Jemon-> /workout/3 hole id = "3"
   const params = useParams();
   const id = params.id;
+
+  // Common box theke Plan ar Saved e jog korar function duto nilam
+  const { addToPlan, saveForLater } = usePlan();
 
   const [workout, setWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -66,6 +71,30 @@ export default function WorkoutDetails() {
     { label: "Calories", value: `${workout.caloriesBurned} kcal` },
     { label: "Rating", value: workout.rating },
   ];
+
+  // "Add to today's plan" e chap dile ei function cholbe
+  function handleAddToPlan() {
+    const result = addToPlan(workout.id);
+
+    if (result === "added") {
+      toast.success("Added to today's plan");
+    } else if (result === "already") {
+      toast("Already in today's plan");
+    } else if (result === "full") {
+      toast.error("Plan is full. Maximum 5 lifts for today");
+    }
+  }
+
+  // "Save for later" e chap dile ei function cholbe
+  function handleSave() {
+    const result = saveForLater(workout.id);
+
+    if (result === "added") {
+      toast.success("Saved for later");
+    } else if (result === "already") {
+      toast("Already in your saved list");
+    }
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-8">
@@ -127,12 +156,18 @@ export default function WorkoutDetails() {
 
           {/* Duita button (kaj Step 8 e hobe) */}
           <div className="mt-8 flex flex-wrap gap-3">
-            <button className="flex items-center gap-2 rounded-lg bg-[#ccff00] px-5 py-3 text-sm font-bold text-black hover:opacity-90">
+            <button
+              onClick={handleAddToPlan}
+              className="flex items-center gap-2 rounded-lg bg-[#ccff00] px-5 py-3 text-sm font-bold text-black hover:opacity-90"
+            >
               <CalendarPlus size={18} />
               Add to today&apos;s plan
             </button>
 
-            <button className="flex items-center gap-2 rounded-lg border border-gray-600 px-5 py-3 text-sm font-semibold hover:border-white">
+            <button
+              onClick={handleSave}
+              className="flex items-center gap-2 rounded-lg border border-gray-600 px-5 py-3 text-sm font-semibold hover:border-white"
+            >
               <Bookmark size={18} />
               Save for later
             </button>
