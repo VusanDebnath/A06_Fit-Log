@@ -14,6 +14,9 @@ export function PlanProvider({ children }) {
   const [planIds, setPlanIds] = useState([]);
   const [savedIds, setSavedIds] = useState([]);
 
+  // Kon kon workout "Done" hoyeche
+  const [doneIds, setDoneIds] = useState([]);
+
   // localStorage theke data pora shesh hoyeche kina seta jante
   const [loaded, setLoaded] = useState(false);
 
@@ -21,9 +24,11 @@ export function PlanProvider({ children }) {
   useEffect(() => {
     const oldPlan = localStorage.getItem("fitlog-plan");
     const oldSaved = localStorage.getItem("fitlog-saved");
+    const oldDone = localStorage.getItem("fitlog-done");
 
     if (oldPlan) setPlanIds(JSON.parse(oldPlan));
     if (oldSaved) setSavedIds(JSON.parse(oldSaved));
+    if (oldDone) setDoneIds(JSON.parse(oldDone));
 
     setLoaded(true);
   }, []);
@@ -34,8 +39,9 @@ export function PlanProvider({ children }) {
     if (loaded) {
       localStorage.setItem("fitlog-plan", JSON.stringify(planIds));
       localStorage.setItem("fitlog-saved", JSON.stringify(savedIds));
+      localStorage.setItem("fitlog-done", JSON.stringify(doneIds));
     }
-  }, [planIds, savedIds, loaded]);
+  }, [planIds, savedIds, doneIds, loaded]);
 
   // Plan e workout jog korar function
   function addToPlan(id) {
@@ -62,6 +68,7 @@ export function PlanProvider({ children }) {
   function removeFromPlan(id) {
     const workoutId = String(id);
     setPlanIds(planIds.filter((item) => item !== workoutId));
+    setDoneIds(doneIds.filter((item) => item !== workoutId));
   }
 
   // Saved theke workout soranor function
@@ -70,15 +77,28 @@ export function PlanProvider({ children }) {
     setSavedIds(savedIds.filter((item) => item !== workoutId));
   }
 
+  // Workout ke "Done" kora
+  function markAsDone(id) {
+    const workoutId = String(id);
+
+    if (doneIds.includes(workoutId)) return "already";
+
+    setDoneIds([...doneIds, workoutId]);
+    return "done";
+  }
+
+
   // Ja ja onno page gulo use korbe, shob ekta object e rakhlam
   const value = {
     planIds,
     savedIds,
+    doneIds,
     maxPlan: MAX_PLAN,
     addToPlan,
     saveForLater,
     removeFromPlan,
     removeFromSaved,
+    markAsDone,
   };
 
   return (
