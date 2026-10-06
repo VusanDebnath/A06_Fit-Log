@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className="flex items-center gap-1 sm:gap-3">
           <Link
             href="/"
-            className={`rounded-full px-3 py-1.5 text-sm ${
+            className={`rounded-full px-2 py-1.5 text-xs sm:px-3 sm:text-sm ${
               pathname === "/" ? activeStyle : normalStyle
             }`}
           >
@@ -47,7 +47,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/my-plan"
-            className={`rounded-full px-3 py-1.5 text-sm ${
+            className={`rounded-full px-2 py-1.5 text-xs sm:px-3 sm:text-sm ${
               pathname === "/my-plan" ? activeStyle : normalStyle
             }`}
           >
@@ -56,7 +56,7 @@ export default function Navbar() {
         </div>
 
         {/* Dane: Plan ar Saved badge */}
-        <div className="flex items-center gap-3 text-sm">
+        <div className="flex items-center gap-2 text-xs sm:gap-3 sm:text-sm">
           <Link href="/my-plan" className="flex items-center gap-2">
             <span>Plan</span>
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ccff00] text-xs font-bold text-black">
